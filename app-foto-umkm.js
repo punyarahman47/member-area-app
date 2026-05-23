@@ -1,6 +1,13 @@
 // app-foto-umkm.js
+// Pastikan Anda mengimpor React di atas file ini jika diperlukan
+import React from 'https://esm.sh/react';
+
 export function FotoUMKMApp() {
-    import React, { useState, useEffect } from 'react';
+    // Paste seluruh isi kode aplikasi Foto UMKM Anda di sini
+    return (
+        <div className="bg-white p-6 rounded-3xl shadow-sm border border-gray-100">
+            <h2 className="text-xl font-bold">Aplikasi Foto UMKM</h2>
+           import React, { useState, useEffect } from 'react';
 import { 
   Camera, 
   Upload, 
@@ -367,9 +374,6 @@ const App = () => {
 };
 
 export default App;
-    return (
-        <div className="bg-white p-6 rounded-3xl shadow-sm border border-gray-100">
-            {/* ...isi komponen aplikasi Anda... */}
         </div>
     );
 }
