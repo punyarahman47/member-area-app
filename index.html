@@ -19,21 +19,27 @@
 
             const scriptUrl = "https://script.google.com/macros/s/AKfycbyFVUXFhc4UewW5Jgo_xoK1uO0zWuLcTq_p0fJVBSVSB1d9tpYa4DnyoI1kwJYgJCsI/exec";
 
-            const handleSubmit = async () => {
-                setLoading(true);
-                try {
-                    await fetch(scriptUrl, {
-                        method: 'POST',
-                        mode: 'no-cors',
-                        body: JSON.stringify({ action: mode, email, password })
-                    });
-                    alert(mode === 'login' ? "Login diproses, tunggu verifikasi..." : "Pendaftaran berhasil, tunggu verifikasi admin!");
-                } catch (e) {
-                    alert("Gagal terhubung ke sistem.");
-                }
-                setLoading(false);
-            };
-
+          const handleSubmit = async () => {
+    setLoading(true);
+    try {
+        // 1. Ambil data dari Google Sheet
+        const response = await fetch(scriptUrl);
+        const data = await response.json();
+        
+        // 2. Cek apakah email dan password cocok
+        const userExists = data.some(row => row[1] === email && row[2] === password);
+        
+        if (userExists) {
+            alert("Login Berhasil! Selamat datang.");
+            // Di sini nanti kita arahkan ke dashboard
+        } else {
+            alert("Email atau Password salah, atau akun belum aktif.");
+        }
+    } catch (e) {
+        alert("Gagal terhubung ke database.");
+    }
+    setLoading(false);
+};
             return (
                 <div className="min-h-screen flex items-center justify-center p-4">
                     <div className="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 w-full max-w-sm text-center">
