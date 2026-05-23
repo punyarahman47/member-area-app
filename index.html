@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Member Area</title>
+    <title>Member Area | AI Editor</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 </head>
-<body class="bg-gray-100">
+<body class="bg-gray-50 font-sans">
     <div id="root"></div>
+
     <script type="text/babel">
         function App() {
             const [mode, setMode] = React.useState('login');
@@ -22,20 +23,36 @@
                     mode: 'no-cors',
                     body: JSON.stringify({ action: mode, email, password })
                 });
-                alert("Permintaan terkirim ke sistem!");
+                alert("Data telah dikirim ke sistem admin!");
             };
 
             return (
-                <div className="max-w-md mx-auto mt-20 p-6 bg-white rounded-xl shadow-md">
-                    <h2 className="text-xl font-bold mb-4">{mode === 'login' ? 'Login' : 'Daftar'}</h2>
-                    <input className="w-full p-2 mb-2 border rounded" placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
-                    <input className="w-full p-2 mb-4 border rounded" type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
-                    <button className="w-full bg-blue-500 text-white p-2 rounded" onClick={handleSubmit}>
-                        {mode === 'login' ? 'Masuk' : 'Daftar'}
-                    </button>
-                    <p className="text-sm mt-4 text-blue-500 cursor-pointer" onClick={() => setMode(mode === 'login' ? 'register' : 'login')}>
-                        {mode === 'login' ? 'Belum punya akun? Daftar' : 'Sudah punya akun? Login'}
-                    </p>
+                <div className="min-h-screen flex items-center justify-center p-4">
+                    <div className="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 w-full max-w-sm">
+                        <div className="text-center mb-8">
+                            <div className="w-16 h-16 bg-orange-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                                <span className="text-2xl">📸</span>
+                            </div>
+                            <h1 className="text-2xl font-bold text-gray-800">Foto UMKM Pro</h1>
+                            <p className="text-gray-400 text-sm">{mode === 'login' ? 'Silakan masuk ke akun Anda' : 'Buat akun baru untuk akses'}</p>
+                        </div>
+
+                        <div className="space-y-4">
+                            <input className="w-full p-4 rounded-xl bg-gray-50 border-none focus:ring-2 focus:ring-orange-400 outline-none" placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
+                            <input className="w-full p-4 rounded-xl bg-gray-50 border-none focus:ring-2 focus:ring-orange-400 outline-none" type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
+                            
+                            <button className="w-full py-4 bg-gradient-to-r from-orange-400 to-orange-600 text-white rounded-2xl font-bold shadow-lg hover:scale-[1.02] transition-transform" onClick={handleSubmit}>
+                                {mode === 'login' ? 'Masuk Sekarang' : 'Daftar Sekarang'}
+                            </button>
+                        </div>
+
+                        <p className="text-center text-sm mt-6 text-gray-500">
+                            {mode === 'login' ? 'Belum punya akun?' : 'Sudah punya akun?'}
+                            <span className="text-orange-600 font-bold ml-1 cursor-pointer" onClick={() => setMode(mode === 'login' ? 'register' : 'login')}>
+                                {mode === 'login' ? 'Daftar' : 'Login'}
+                            </span>
+                        </p>
+                    </div>
                 </div>
             );
         }
