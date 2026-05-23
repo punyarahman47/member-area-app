@@ -15,6 +15,24 @@
             const [mode, setMode] = React.useState('login');
             const [email, setEmail] = React.useState('');
             const [password, setPassword] = React.useState('');
+            const [loading, setLoading] = React.useState(false);
+
+            const scriptUrl = "https://script.google.com/macros/s/AKfycbyFVUXFhc4UewW5Jgo_xoK1uO0zWuLcTq_p0fJVBSVSB1d9tpYa4DnyoI1kwJYgJCsI/exec";
+
+            const handleSubmit = async () => {
+                setLoading(true);
+                try {
+                    await fetch(scriptUrl, {
+                        method: 'POST',
+                        mode: 'no-cors',
+                        body: JSON.stringify({ action: mode, email, password })
+                    });
+                    alert(mode === 'login' ? "Login diproses, tunggu verifikasi..." : "Pendaftaran berhasil, tunggu verifikasi admin!");
+                } catch (e) {
+                    alert("Gagal terhubung ke sistem.");
+                }
+                setLoading(false);
+            };
 
             return (
                 <div className="min-h-screen flex items-center justify-center p-4">
@@ -23,19 +41,25 @@
                             <span className="text-2xl">📸</span>
                         </div>
                         <h1 className="text-2xl font-bold text-gray-800">Foto UMKM Pro</h1>
-                        <p className="text-gray-400 text-sm mb-6">Silakan masuk ke akun Anda</p>
+                        <p className="text-gray-400 text-sm mb-6">{mode === 'login' ? 'Silakan masuk ke akun Anda' : 'Buat akun baru'}</p>
 
                         <div className="space-y-4">
-                            <input className="w-full p-4 rounded-xl bg-gray-50 border-none focus:ring-2 focus:ring-orange-400 outline-none" placeholder="Email" />
-                            <input className="w-full p-4 rounded-xl bg-gray-50 border-none focus:ring-2 focus:ring-orange-400 outline-none" type="password" placeholder="Password" />
+                            <input className="w-full p-4 rounded-xl bg-gray-50 border-none focus:ring-2 focus:ring-orange-400 outline-none" placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
+                            <input className="w-full p-4 rounded-xl bg-gray-50 border-none focus:ring-2 focus:ring-orange-400 outline-none" type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
                             
-                            <button className="w-full py-4 bg-gradient-to-r from-orange-400 to-orange-600 text-white rounded-2xl font-bold shadow-lg hover:scale-[1.02] transition-transform">
-                                Masuk Sekarang
+                            <button 
+                                className="w-full py-4 bg-gradient-to-r from-orange-400 to-orange-600 text-white rounded-2xl font-bold shadow-lg hover:scale-[1.02] transition-transform" 
+                                onClick={handleSubmit}
+                            >
+                                {loading ? "Memproses..." : (mode === 'login' ? 'Masuk Sekarang' : 'Daftar Sekarang')}
                             </button>
                         </div>
 
                         <p className="text-sm mt-6 text-gray-500">
-                            Belum punya akun? <span className="text-orange-600 font-bold cursor-pointer">Daftar</span>
+                            {mode === 'login' ? 'Belum punya akun?' : 'Sudah punya akun?'} 
+                            <span className="text-orange-600 font-bold cursor-pointer ml-1" onClick={() => setMode(mode === 'login' ? 'register' : 'login')}>
+                                {mode === 'login' ? 'Daftar' : 'Login'}
+                            </span>
                         </p>
                     </div>
                 </div>
