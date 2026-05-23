@@ -1,42 +1,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Member Area | Foto UMKM</title>
+    <title>Member Area</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Pastikan React dimuat sebelum script utama -->
-    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
 </head>
 <body class="bg-gray-50">
     <div id="root"></div>
 
-    <script type="text/babel">
-        // Fungsi Aplikasi AI Anda
-        function FotoUMKMApp() {
-            return (
-                <div className="bg-white p-8 rounded-3xl shadow-sm border border-orange-100">
-                    <h2 className="text-2xl font-bold">Aplikasi AI Berhasil Dimuat</h2>
-                    <p>Komponen Anda sekarang berjalan dengan benar.</p>
-                </div>
-            );
-        }
+    <script>
+        // Menggunakan React.createElement agar tidak perlu babel/JSX
+        const e = React.createElement;
 
-        // Fungsi Utama
         function App() {
-            const [view, setView] = React.useState('dashboard');
-
-            return (
-                <div className="p-4">
-                    <button onClick={() => alert("Keluar")} className="mb-4 text-red-500">Keluar</button>
-                    <FotoUMKMApp />
-                </div>
-            );
+            return e('div', { className: 'p-10 text-center' }, [
+                e('h1', { className: 'text-2xl font-bold' }, 'Selamat Datang di Member Area'),
+                e('p', { className: 'mt-4' }, 'Aplikasi berhasil dimuat!')
+            ]);
         }
 
-        // Render ke root
         const root = ReactDOM.createRoot(document.getElementById('root'));
-        root.render(<App />);
+        root.render(e(App));
     </script>
 </body>
 </html>
