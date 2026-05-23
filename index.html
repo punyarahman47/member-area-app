@@ -11,68 +11,27 @@
     <div id="root"></div>
 
     <script type="text/babel">
-        // --- MASUKKAN URL WEB APP ANDA DI SINI ---
-        const scriptUrl = "https://script.google.com/macros/s/AKfycby16-vVCDdnwyMqWQmNn4dtNQziII8Jrt83TjWwAJNbhV_AF2BxOkO3Mb9HzziS55QQ/exec";
-
         function MemberArea() {
-            const [view, setView] = React.useState('login');
-            const [email, setEmail] = React.useState('');
-            const [password, setPassword] = React.useState('');
+            const [view, setView] = React.useState('dashboard'); // Langsung ke dashboard untuk testing
 
-            const handleLogin = async () => {
-                const response = await fetch(scriptUrl, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    body: JSON.stringify({ action: "login", email, password })
-                });
-                // Karena no-cors, kita buat simulasi sukses
-                alert("Login diproses...");
-                setView('dashboard'); 
-            };
-
-            if (view === 'login') {
-                return (
-                    <div className="min-h-screen flex items-center justify-center p-4">
-                        <div className="bg-white p-8 rounded-3xl shadow-lg w-full max-w-sm text-center">
-                            <h1 className="text-2xl font-bold mb-6">Login Member</h1>
-                            <input className="w-full p-4 mb-4 bg-gray-50 rounded-xl" placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
-                            <input className="w-full p-4 mb-4 bg-gray-50 rounded-xl" type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
-                            <button className="w-full py-4 bg-orange-500 text-white rounded-xl font-bold" onClick={handleLogin}>Masuk Sekarang</button>
-                        </div>
-                    </div>
-                );
-            }
-
-            // Ini adalah tempat aplikasi AI Anda dipanggil
-            <script type="text/babel">
-    import { FotoUMKMApp } from './app-foto-umkm.js';
-
-    function MemberArea() {
-        // ... logika login ...
-        return (
-            <div>
-                <FotoUMKMApp />
-            </div>
-        );
-    }
-</script>
             return (
                 <div className="min-h-screen">
                     <nav className="bg-white p-4 shadow-sm flex justify-between items-center">
                         <span className="font-bold">Foto UMKM Pro</span>
-                        <button onClick={() => setView('login')} className="text-red-500">Keluar</button>
+                        <button onClick={() => setView('login')} className="text-red-500 font-bold">Keluar</button>
                     </nav>
-                    <div className="p-4">
-                        {/* Di sini kode AI Editor Anda akan diletakkan */}
-                        <div className="bg-white p-6 rounded-3xl shadow-sm">
-                            <h2 className="text-xl font-bold mb-4">Aplikasi Editor AI</h2>
-                            {/* Komponen App Foto UMKM Anda akan berjalan di sini */}
-                            <p>Aplikasi aktif dan siap digunakan!</p>
+                    
+                    <div className="p-6">
+                        <div className="bg-white p-8 rounded-3xl shadow-sm border border-gray-100">
+                            <h2 className="text-2xl font-bold mb-4">Aplikasi Editor AI</h2>
+                            <p className="text-gray-600">Aplikasi Anda sekarang terintegrasi dengan rapi di dalam dashboard.</p>
+                            {/* Di sini nanti Anda bisa memanggil komponen FotoUMKMApp */}
                         </div>
                     </div>
                 </div>
             );
         }
+
         const root = ReactDOM.createRoot(document.getElementById('root'));
         root.render(<MemberArea />);
     </script>
