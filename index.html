@@ -11,50 +11,58 @@
     <div id="root"></div>
 
     <script type="text/babel">
-        function App() {
+        // --- MASUKKAN URL WEB APP ANDA DI SINI ---
+        const scriptUrl = "https://script.google.com/macros/s/AKfycby16-vVCDdnwyMqWQmNn4dtNQziII8Jrt83TjWwAJNbhV_AF2BxOkO3Mb9HzziS55QQ/exec";
+
+        function MemberArea() {
             const [view, setView] = React.useState('login');
             const [email, setEmail] = React.useState('');
             const [password, setPassword] = React.useState('');
 
-            // Halaman Login
+            const handleLogin = async () => {
+                const response = await fetch(scriptUrl, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    body: JSON.stringify({ action: "login", email, password })
+                });
+                // Karena no-cors, kita buat simulasi sukses
+                alert("Login diproses...");
+                setView('dashboard'); 
+            };
+
             if (view === 'login') {
                 return (
                     <div className="min-h-screen flex items-center justify-center p-4">
-                        <div className="bg-white p-8 rounded-3xl shadow-sm w-full max-w-sm text-center">
+                        <div className="bg-white p-8 rounded-3xl shadow-lg w-full max-w-sm text-center">
                             <h1 className="text-2xl font-bold mb-6">Login Member</h1>
                             <input className="w-full p-4 mb-4 bg-gray-50 rounded-xl" placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
                             <input className="w-full p-4 mb-4 bg-gray-50 rounded-xl" type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
-                            <button className="w-full py-4 bg-orange-500 text-white rounded-xl font-bold" 
-                                    onClick={() => { if(email && password) setView('dashboard') }}>Masuk Sekarang</button>
+                            <button className="w-full py-4 bg-orange-500 text-white rounded-xl font-bold" onClick={handleLogin}>Masuk Sekarang</button>
                         </div>
                     </div>
                 );
             }
 
-            // Halaman Dashboard (Isi Aplikasi AI Anda)
+            // Ini adalah tempat aplikasi AI Anda dipanggil
             return (
-                <div className="min-h-screen p-6">
-                    <nav className="flex justify-between items-center mb-8">
-                        <h1 className="text-xl font-bold">Dashboard Member</h1>
-                        <button onClick={() => setView('login')} className="text-red-500 font-bold">Keluar</button>
+                <div className="min-h-screen">
+                    <nav className="bg-white p-4 shadow-sm flex justify-between items-center">
+                        <span className="font-bold">Foto UMKM Pro</span>
+                        <button onClick={() => setView('login')} className="text-red-500">Keluar</button>
                     </nav>
-
-                    <div className="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 max-w-2xl mx-auto">
-                        <h2 className="text-2xl font-bold mb-4">📸 AI Foto Produk UMKM</h2>
-                        <p className="text-gray-500 mb-6">Unggah foto produk Anda dan biarkan AI mempercantiknya secara otomatis.</p>
-                        
-                        <div className="border-2 border-dashed border-gray-200 p-10 rounded-2xl text-center">
-                            <button className="bg-orange-500 text-white px-6 py-3 rounded-xl font-bold hover:bg-orange-600">
-                                Pilih Foto Produk
-                            </button>
-                            <p className="text-xs text-gray-400 mt-4">Format: JPG, PNG (Maks 5MB)</p>
+                    <div className="p-4">
+                        {/* Di sini kode AI Editor Anda akan diletakkan */}
+                        <div className="bg-white p-6 rounded-3xl shadow-sm">
+                            <h2 className="text-xl font-bold mb-4">Aplikasi Editor AI</h2>
+                            {/* Komponen App Foto UMKM Anda akan berjalan di sini */}
+                            <p>Aplikasi aktif dan siap digunakan!</p>
                         </div>
                     </div>
                 </div>
             );
         }
         const root = ReactDOM.createRoot(document.getElementById('root'));
-        root.render(<App />);
+        root.render(<MemberArea />);
     </script>
 </body>
 </html>
