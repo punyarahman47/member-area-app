@@ -1,6 +1,46 @@
 <!DOCTYPE html>
-    <html>
-      <body>
-        <div id="root"></div>
-      </body>
-    </html>
+<html>
+<head>
+    <title>Member Area</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body class="bg-gray-100">
+    <div id="root"></div>
+    <script type="text/babel">
+        function App() {
+            const [mode, setMode] = React.useState('login');
+            const [email, setEmail] = React.useState('');
+            const [password, setPassword] = React.useState('');
+            
+            const handleSubmit = async () => {
+                const url = "https://script.google.com/macros/s/AKfycbyFVUXFhc4UewW5Jgo_xoK1uO0zWuLcTq_p0fJVBSVSB1d9tpYa4DnyoI1kwJYgJCsI/exec";
+                await fetch(url, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    body: JSON.stringify({ action: mode, email, password })
+                });
+                alert("Permintaan terkirim ke sistem!");
+            };
+
+            return (
+                <div className="max-w-md mx-auto mt-20 p-6 bg-white rounded-xl shadow-md">
+                    <h2 className="text-xl font-bold mb-4">{mode === 'login' ? 'Login' : 'Daftar'}</h2>
+                    <input className="w-full p-2 mb-2 border rounded" placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
+                    <input className="w-full p-2 mb-4 border rounded" type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
+                    <button className="w-full bg-blue-500 text-white p-2 rounded" onClick={handleSubmit}>
+                        {mode === 'login' ? 'Masuk' : 'Daftar'}
+                    </button>
+                    <p className="text-sm mt-4 text-blue-500 cursor-pointer" onClick={() => setMode(mode === 'login' ? 'register' : 'login')}>
+                        {mode === 'login' ? 'Belum punya akun? Daftar' : 'Sudah punya akun? Login'}
+                    </p>
+                </div>
+            );
+        }
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
